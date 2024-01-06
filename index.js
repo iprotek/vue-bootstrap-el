@@ -23,7 +23,7 @@ if(!window.Vue)
     Vue.component('icheck', require('./common/iCheck.vue').default);  
     Vue.component('iframe-view', require('./common/iFrameView.vue').default);  
     Vue.component('login-prompt', require('./common/LoginPrompt.vue').default);  
-    Vue.component('modal', require('./common/Modal.vue').default);  
+    Vue.component('modal-view', require('./common/Modal.vue').default);  
     Vue.component('order-fields', require('./common/OrderFields.vue').default);  
     Vue.component('page-footer', require('./common/PageFooter.vue').default);  
     Vue.component('preview-data-image', require('./common/PreviewDataImage.vue').default);  
