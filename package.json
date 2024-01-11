@@ -1,18 +1,18 @@
 {
   "name": "vue-bootstrap-el",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Bootstrap element for npm",
   "main": "index.js",
   "scripts": {
     "test": "npm run dev"
   },
-  "repository": {
-    "type": "git",
-    "url": "JS bootstrap elements"
-  },
   "keywords": [
     "bootstrap"
   ],
   "author": "Joseph Aguilar",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iprotek/vue-bootstrap-el/issues"
+  },
+  "homepage": "https://github.com/iprotek/vue-bootstrap-el#readme"
 }
