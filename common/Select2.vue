@@ -9,7 +9,7 @@
 <script>
     
     export default {
-        props:[ "value","allow_multiple", "url", "default_theme" , "placeholder", "filters", "modal_selector", "allowtag", "has_clear", "disabled", "search_param", "display_items_no", "select_data", "select_template" ],
+        props:[ "value","allow_multiple", "url", "custom_data" , "default_theme" , "placeholder", "query_filters" ,"filters", "modal_selector", "allowtag", "has_clear", "disabled", "search_param", "display_items_no", "select_data", "select_template" ],
         components: { 
         },
         watch: {
@@ -62,6 +62,14 @@
                                 page:1,
                                 items_per_page: (vm.items_per_page*1)
                             } 
+                            if(vm.query_filters && typeof vm.query_filters === 'object' && vm.query_filters !== null){
+                                const keysArray = Object.keys(vm.query_filters);
+                                keysArray.forEach((el)=>{
+                                    query[el] = vm.query_filters[el];
+                                });
+                            }
+
+
                             if(vm.search_param){
                                 query[vm.search_param]  = !params.term ? '':params.term;
                             }
@@ -73,7 +81,7 @@
                         },
                         dataType: 'json',
                         processResults: function (data) { 
-                            var data = data.data;
+                            var data = data.data; 
                             if(vm.has_clear){
                                 data = [{
                                     id:-1,
@@ -81,6 +89,11 @@
                                 }].concat(data);
                             }
                             vm.itemList = data;
+                            if(vm.custom_data){
+                                var item_list = vm.itemList.filter((item)=>item.id>0);
+                                vm.custom_data(item_list);
+                            }
+
                             return {
                                 results: vm.itemList
                             };

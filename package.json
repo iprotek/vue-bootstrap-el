@@ -1,6 +1,6 @@
 {
   "name": "vue-bootstrap-el",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Bootstrap element for npm",
   "main": "index.js",
   "scripts": {
