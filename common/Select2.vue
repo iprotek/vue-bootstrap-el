@@ -128,11 +128,15 @@
                 }
                 else jSON.theme = vm.default_theme;
                 if(vm.modal_selector)
-                    jSON.dropdownParent = $(vm.modal_selector);
-
+                    jSON.dropdownParent = $(vm.modal_selector); 
                 $('#'+this.selectElID).select2(jSON).on('change', function (e) { 
                     //vm.itemSelected(this.value);
                     var selectedItem = vm.itemList.filter(a=>a.id == this.value)[0];
+
+                    if(!selectedItem && !vm.url && vm.select_data){ 
+                        selectedItem = vm.select_data.filter(a=>a.id == this.value)[0];
+                    } 
+                    
                     if(selectedItem){
                         vm.selectedItem = selectedItem;
                         vm.selectedText = selectedItem.text; 

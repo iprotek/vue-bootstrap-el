@@ -3,7 +3,7 @@
         <div :class="(extended_width===true?'modal-dialog modal-lg':'modal-dialog') " :style="vw? 'min-width:'+vw+'vw':''">
             <div class="modal-content">
                 <slot>
-                    <div class="modal-header">
+                    <div class="modal-header pb-0">
                         <h4 class="modal-title">
                             <slot name="header"></slot>
                         </h4>
@@ -19,7 +19,7 @@
                         </div>
                     </template>
 
-                    <div :class="'modal-body '+(body_class ? body_class : '')">
+                    <div :class="'modal-body pt-0 '+(body_class ? body_class : '')">
                         <slot name="body"></slot>
                     </div>
                     <slot name="body-below"></slot>

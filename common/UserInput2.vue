@@ -8,13 +8,13 @@
             </div>
             <div class="input-group-text form-control text-nowrap" style="padding:0px; max-width:100%;">
                 <div class="user-input-wrp" style="margin-top:-25px;"><br>
-                    <input v-model="input_value" @keyup="userInputKeyUp" @change="value_changed" @focus="focusenter" @focusout="focusout" :readonly="is_readonly" :type="type ? type:'text' " class="inputText" :disabled="is_disabled" :style="'border:0px;'+input_style" required="" :title="placeholder_description">
+                    <input :id="input2_id" v-model="input_value" @keyup="userInputKeyUp" @change="value_changed" @focus="focusenter" @focusout="focusout" :readonly="is_readonly" :type="type ? type:'text' " class="inputText" :disabled="is_disabled" :style="'border:0px;'+input_style" required="" :title="placeholder_description">
                     <span :id="label_id" class="floating-label" v-html="placeholder" :title="placeholder_description" :style="placeholder_style"></span>
                 </div>
             </div>
         </div>
         <div v-else class="user-input-wrp"><br>
-            <input v-model="input_value" @keyup="userInputKeyUp" @change="value_changed" @focus="focusenter" @focusout="focusout" :readonly="is_readonly" :type="type ? type:'text' " class="inputText" :disabled="is_disabled" :style="input_style" required="" :title="placeholder_description">
+            <input :id="input2_id" v-model="input_value" @keyup="userInputKeyUp" @change="value_changed" @focus="focusenter" @focusout="focusout" :readonly="is_readonly" :type="type ? type:'text' " class="inputText" :disabled="is_disabled" :style="input_style" required="" :title="placeholder_description">
             <span :id="label_id" class="floating-label" v-html="placeholder" :title="placeholder_description" :style="placeholder_style"></span>
         </div>
         <i v-if="placeholder_description"><small class="text-secondary" v-html="placeholder_description"> </small></i>
@@ -36,7 +36,8 @@
                 is_disabled:false,
                 current_color:"",
                 label_id: 'ph-label-'+this._uid,
-                input_value: this.value
+                input_value: this.value,
+                input2_id: 'input2-'+this._uid
             }
         },
         methods: {
