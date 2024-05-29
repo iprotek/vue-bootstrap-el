@@ -1,5 +1,5 @@
 <template>
-    <div v-if="target_id" class="card my-1">
+    <div v-if="target_id>0" class="card my-1">
         <div class="card-header">
             <h5 v-text="galleryTitle"></h5>
         </div>
@@ -24,9 +24,9 @@
                     <tr v-for="(targetItem, targetIndex) in files" v-bind:key="'file-'+targetItem.id+'-'+targetIndex">
                         <th v-text="targetIndex+1"></th>
                         <td class="p-1">
-                            <img v-if="targetItem.file_type.split('/')[0] == 'image'" class="preview-image" @click="$refs.preview_image.preview($event)" :alt="targetItem.file_name" :src="targetItem.public_link" style="width:80px; heigth:auto;" />
-                            <a :href="targetItem.public_link" v-else target="_blank">
-                                <img  class="preview-image" :alt="targetItem.file_name" :src="'/storage/images/0blank.png'" style="width:80px; heigth:auto;" />
+                            <img v-if="targetItem.file_type.split('/')[0] == 'image'" class="preview-image" @click="$refs.preview_image.preview($event)" :alt="targetItem.file_name" :src="'/manage/file-uploads/image-preview/'+targetItem.id" style="width:80px; heigth:auto;" />
+                            <a :href="'/manage/file-uploads/load-file/'+targetItem.id" v-else target="_blank">
+                                <img  class="preview-image" :alt="targetItem.file_name" :src="'/manage/file-uploads/image-preview/'+targetItem.id" style="width:80px; heigth:auto;" />
                             </a>
                         </td>
                         <td>
@@ -229,7 +229,6 @@
                 WebRequest2('GET', '/manage/file-uploads/get-list?'+req).then(resp=>{
                     resp.json().then(data=>{
                         vm.files = data.data;
-                        console.log(vm.files);
                    })
                 })
             },

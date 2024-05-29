@@ -1,6 +1,6 @@
 <template> 
-    <div class="accordion-item">
-        <h2 class="accordion-header" @click="accordion_click()">
+    <div class="accordion-item" >
+        <h2 class="accordion-header" @click="accordion_click();$emit('click');">
             <button :class="'accordion-button '+(is_show? '':'collapsed')" type="button" data-bs-toggle="collapse" :data-bs-target="'#'+collapseId" :aria-expanded="is_show?'true':''" :aria-controls="'#'+collapseId">
               <slot name="header"></slot>
             </button>

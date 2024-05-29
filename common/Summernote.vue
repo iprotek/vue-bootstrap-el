@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        props:[ "value", "height", "placeholder" ],
+        props:[ "value", "height", "placeholder", "group_id"],
         components: { 
         },
         data: function () {
@@ -25,7 +25,9 @@
             },
         },
         methods: { 
-
+            getFileExt:function(filename){
+                return filename.split('.').pop();
+            },
 
         },
         mounted:function(){     
@@ -35,17 +37,45 @@
                 if(vm.height){
                     height = vm.height
                 }
+                var callback_json = {
+                    onChange: function(contents, $editable) {
+                        vm.content = contents;
+                        vm.$emit("input", contents);
+                        //document.querySelector('#intro').value = contents;
+                    }
+                };
+                if(vm.group_id > 0 ){
+                    //console.log("Hello Uploading..");
+                    callback_json.onImageUpload = function(files){
+                        //console.log(files, FileList.length); 
+                        for( var i= 0; i <files.length; i++)
+                        {
+                            var file = files[i]; 
+                            const formData = new FormData(); 
+                            var file_ext = vm.getFileExt(file.name);
+                            formData.append('target_name', "summernote-uploads");
+                            formData.append('target_id', vm.group_id); 
+                            formData.append('file', file);
+                            formData.append('file_name', file.name);
+                            formData.append('file_type', file.type);
+                            formData.append('file_ext', file_ext);
+
+                            WebRequest2('POST', "/api/group/"+vm.group_id+"/file-upload/add", formData, "multipart/form-data").then(resp=>{
+                                resp.json().then(data=>{
+                                    //console.log(data, vm.summernoteId);
+                                    $('#'+vm.summernoteId).summernote('insertImage', data.url);
+                                })
+                            } );
+                            
+                        }
+                    }
+                }
+
 
                 $('#'+vm.summernoteId).summernote( { 
                     placeholder: vm.placeholder ? vm.placeholder : '',
                     height: height,
-                    callbacks: {
-                        onChange: function(contents, $editable) {
-                            vm.content = contents;
-                            vm.$emit("input", contents);
-                            //document.querySelector('#intro').value = contents;
-                        }
-                    } 
+                    callbacks: callback_json
                 });
                 if(vm.value){
                     vm.content = vm.value;

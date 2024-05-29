@@ -1,5 +1,5 @@
 <template>  
-    <div>
+    <div style="display:inline-block;">
         <input :id="switchID" v-model="input_check" type="checkbox" @change="value_changed" data-bootstrap-switch :data-off-color="off_color" :data-on-color="on_color">
     </div>
 </template>

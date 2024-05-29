@@ -9,7 +9,7 @@
 <script>
     
     export default {
-        props:[ "value","allow_multiple", "url", "custom_data" , "default_theme" , "placeholder", "query_filters" ,"filters", "modal_selector", "allowtag", "has_clear", "disabled", "search_param", "display_items_no", "select_data", "select_template" ],
+        props:[ "value","allow_multiple", "url", "custom_data" , "default_theme", "append_data", "placeholder", "query_filters" ,"filters", "modal_selector", "allowtag", "has_clear", "disabled", "search_param", "display_items_no", "select_data", "select_template" ],
         components: { 
         },
         watch: {
@@ -82,6 +82,9 @@
                         dataType: 'json',
                         processResults: function (data) { 
                             var data = data.data; 
+                            if(vm.append_data && vm.append_data.length > 0){
+                                data = vm.append_data.concat(data);
+                            }
                             if(vm.has_clear){
                                 data = [{
                                     id:-1,
