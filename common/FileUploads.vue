@@ -30,7 +30,8 @@
                             </a>
                         </td>
                         <td>
-                            <small v-text="targetItem.file_name"></small>
+                            <small v-if="!targetItem.is_show_full" :title="targetItem.file_name" @click="triggerClick(targetItem, 1);" v-text="limitName(targetItem.file_name)" style="cursor:pointer;"></small>
+                            <small v-else @click="triggerClick(targetItem, 2);" :title="targetItem.file_name" v-text="targetItem.file_name+'Hello'" style="cursor:pointer;"></small>
                         </td>
                         <td >
                             <small v-text="targetItem.file_type"></small>
@@ -83,6 +84,16 @@
             }
         },
         methods: {
+            triggerClick:function(item, s){
+                var vm = this;
+                setTimeout(()=>{
+                    if(!item.is_show_full)
+                        item.is_show_full = true;
+                    else
+                        item.is_show_full = false;
+                    //console.log(item,s);
+                }, 100);
+            },
             queryString:function(params={}){ 
                 var queryString = Object.keys(params).map(function(key) {
                     return key + '=' + params[key]
@@ -214,6 +225,15 @@
                         });
                 }
             },
+            limitName:function(filename, limitLength = 40){
+                if(!filename)
+                    return '';
+                if(filename.length > limitLength){
+                    return filename.substring(0,limitLength)+'...';
+                }
+                return filename;
+
+            },
             getFileExt:function(filename){
                 return filename.split('.').pop();
             },
@@ -226,10 +246,13 @@
                     target_name : this.target_name,
                     target_id : this.target_id
                 });
+                vm.files = [];
                 WebRequest2('GET', '/manage/file-uploads/get-list?'+req).then(resp=>{
                     resp.json().then(data=>{
+                        data.data.forEach((item)=>{
+                            item.is_show_full = false;
+                        });
                         vm.files = data.data;
-                        console.log(vm.files);
                    })
                 })
             },
