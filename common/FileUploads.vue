@@ -31,7 +31,7 @@
                         </td>
                         <td>
                             <small v-if="!targetItem.is_show_full" :title="targetItem.file_name" @click="triggerClick(targetItem, 1);" v-text="limitName(targetItem.file_name)" style="cursor:pointer;"></small>
-                            <small v-else @click="triggerClick(targetItem, 2);" :title="targetItem.file_name" v-text="targetItem.file_name+'Hello'" style="cursor:pointer;"></small>
+                            <small v-else @click="triggerClick(targetItem, 2);" :title="targetItem.file_name" v-text="targetItem.file_name" style="cursor:pointer;"></small>
                         </td>
                         <td >
                             <small v-text="targetItem.file_type"></small>
